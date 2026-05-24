@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Dishant Khati — Software Developer</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0a0f;
+  --bg2:#10101a;
+  --bg3:#161624;
+  --accent:#00ffc8;
+  --accent2:#7b61ff;
+  --text:#e8e8f0;
+  --muted:#6b6b88;
+  --border:#1e1e30;
+  --mono:'JetBrains Mono',monospace;
+  --sans:'Syne',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--mono);overflow-x:hidden;line-height:1.7}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 4rem;background:rgba(10,10,15,0.88);backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.logo{font-family:var(--sans);font-weight:800;font-size:1.3rem;color:var(--accent);letter-spacing:-0.5px}
+.logo span{color:var(--text)}
+nav ul{list-style:none;display:flex;gap:2rem}
+nav ul a{color:var(--muted);text-decoration:none;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;transition:color .2s}
+nav ul a:hover{color:var(--accent)}
+.nav-cta{background:transparent;border:1px solid var(--accent);color:var(--accent);padding:.45rem 1.2rem;border-radius:4px;font-family:var(--mono);font-size:.8rem;cursor:pointer;transition:all .2s}
+.nav-cta:hover{background:var(--accent);color:var(--bg)}
+
+.grid-bg{position:fixed;inset:0;z-index:0;background-image:linear-gradient(rgba(0,255,200,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,255,200,.03) 1px,transparent 1px);background-size:60px 60px;pointer-events:none}
+section{position:relative;z-index:1}
+
+#hero{min-height:100vh;display:flex;align-items:center;padding:6rem 4rem 4rem;max-width:1200px;margin:0 auto}
+.hero-inner{max-width:760px}
+.hero-tag{font-size:.75rem;letter-spacing:.2em;color:var(--accent);text-transform:uppercase;margin-bottom:1.5rem;display:flex;align-items:center;gap:.6rem}
+.hero-tag::before{content:'';display:inline-block;width:32px;height:1px;background:var(--accent)}
+.hero-name{font-family:var(--sans);font-size:clamp(2.8rem,6vw,5rem);font-weight:800;line-height:1.05;letter-spacing:-2px;margin-bottom:1rem}
+.hero-name .accent{color:var(--accent)}
+.hero-desc{color:var(--muted);font-size:.95rem;max-width:560px;margin-bottom:2.5rem;line-height:1.9}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap}
+.btn-primary{background:var(--accent);color:var(--bg);padding:.75rem 2rem;border:none;border-radius:4px;font-family:var(--mono);font-weight:700;font-size:.9rem;cursor:pointer;transition:all .2s;text-decoration:none;display:inline-block}
+.btn-primary:hover{opacity:.85;transform:translateY(-2px)}
+.btn-outline{background:transparent;color:var(--text);padding:.75rem 2rem;border:1px solid var(--border);border-radius:4px;font-family:var(--mono);font-size:.9rem;cursor:pointer;transition:all .2s;text-decoration:none;display:inline-block}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent)}
+.hero-status{margin-top:3rem;display:flex;align-items:center;gap:.8rem;font-size:.8rem;color:var(--muted)}
+.status-dot{width:8px;height:8px;border-radius:50%;background:#00e676;box-shadow:0 0 8px #00e676;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.hero-contact-row{display:flex;flex-wrap:wrap;gap:1.2rem;margin-top:1.5rem}
+.hero-contact-item{font-size:.78rem;color:var(--muted);text-decoration:none;display:flex;align-items:center;gap:.4rem;transition:color .2s}
+.hero-contact-item:hover{color:var(--accent)}
+.hero-contact-item .ci{color:var(--accent)}
+
+.section-wrap{padding:7rem 4rem;max-width:1200px;margin:0 auto}
+.section-label{font-size:.75rem;letter-spacing:.2em;color:var(--accent);text-transform:uppercase;margin-bottom:.75rem;display:flex;align-items:center;gap:.6rem}
+.section-label::before{content:'';display:inline-block;width:24px;height:1px;background:var(--accent)}
+.section-title{font-family:var(--sans);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;letter-spacing:-1px;margin-bottom:3.5rem;line-height:1.1}
+.divider{height:1px;background:var(--border);margin:0}
+
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
+.about-text p{color:var(--muted);font-size:.9rem;line-height:2;margin-bottom:1rem}
+.about-text p strong{color:var(--text)}
+.about-stats{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
+.stat-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:1.5rem;transition:border-color .2s}
+.stat-card:hover{border-color:var(--accent)}
+.stat-num{font-family:var(--sans);font-size:2.2rem;font-weight:800;color:var(--accent);line-height:1}
+.stat-label{font-size:.78rem;color:var(--muted);margin-top:.4rem;letter-spacing:.05em}
+
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem}
+.skill-cat{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:1.5rem;transition:border-color .2s}
+.skill-cat:hover{border-color:var(--accent2)}
+.skill-cat-name{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent2);margin-bottom:1rem}
+.skill-tags{display:flex;flex-wrap:wrap;gap:.5rem}
+.tag{background:var(--bg3);border:1px solid var(--border);color:var(--muted);font-size:.75rem;padding:.3rem .7rem;border-radius:3px;transition:all .2s}
+.tag:hover{border-color:var(--accent);color:var(--accent)}
+
+.exp-list{display:flex;flex-direction:column}
+.exp-item{display:grid;grid-template-columns:200px 1fr;gap:2rem;padding:2.5rem 0;border-bottom:1px solid var(--border)}
+.exp-item:last-child{border-bottom:none}
+.exp-date{font-size:.78rem;color:var(--muted);padding-top:.2rem;letter-spacing:.05em}
+.exp-role{font-family:var(--sans);font-size:1.1rem;font-weight:700;color:var(--text);margin-bottom:.2rem}
+.exp-company{font-size:.85rem;color:var(--accent);margin-bottom:.8rem}
+.exp-desc{font-size:.85rem;color:var(--muted);line-height:1.9}
+.exp-tags{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1rem}
+.exp-tag{font-size:.7rem;background:rgba(0,255,200,.06);color:var(--accent);border:1px solid rgba(0,255,200,.15);padding:.25rem .6rem;border-radius:3px}
+
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:1.5rem}
+.project-card{background:var(--bg2);border:1px solid var(--border);border-radius:10px;overflow:hidden;transition:all .25s}
+.project-card:hover{border-color:var(--accent);transform:translateY(-4px)}
+.project-img{height:100px;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:2.5rem;border-bottom:1px solid var(--border);position:relative;overflow:hidden}
+.project-img::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,255,200,.05),rgba(123,97,255,.05))}
+.project-body{padding:1.5rem}
+.project-title{font-family:var(--sans);font-size:1rem;font-weight:700;margin-bottom:.4rem}
+.project-stack{font-size:.72rem;color:var(--accent2);margin-bottom:.6rem;letter-spacing:.04em}
+.project-desc{font-size:.82rem;color:var(--muted);line-height:1.8}
+
+.edu-list{display:flex;flex-direction:column}
+.edu-item{display:grid;grid-template-columns:160px 1fr;gap:2rem;padding:2rem 0;border-bottom:1px solid var(--border)}
+.edu-item:last-child{border-bottom:none}
+.edu-year{font-size:.78rem;color:var(--muted);padding-top:.2rem}
+.edu-degree{font-family:var(--sans);font-size:1rem;font-weight:700;margin-bottom:.2rem}
+.edu-school{font-size:.85rem;color:var(--accent);margin-bottom:.3rem}
+.edu-grade{font-size:.78rem;color:var(--muted)}
+
+.cert-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem}
+.cert-card{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:1.2rem 1.5rem;transition:border-color .2s;text-decoration:none;display:block}
+.cert-card:hover{border-color:var(--accent2)}
+.cert-name{font-size:.88rem;color:var(--text);font-weight:500;margin-bottom:.3rem}
+.cert-org{font-size:.75rem;color:var(--muted)}
+
+.ach-grid{display:flex;flex-direction:column;gap:.8rem}
+.ach-item{display:flex;align-items:flex-start;gap:1rem;background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:1rem 1.5rem;transition:border-color .2s}
+.ach-item:hover{border-color:var(--accent)}
+.ach-bullet{color:var(--accent);font-size:1rem;margin-top:.15rem;flex-shrink:0}
+.ach-text{font-size:.85rem;color:var(--muted);line-height:1.7}
+.ach-text strong{color:var(--text)}
+
+.blog-grid{display:flex;flex-direction:column;gap:1rem}
+.blog-item{display:flex;align-items:center;gap:1.5rem;background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:1.2rem 1.5rem;transition:border-color .2s}
+.blog-item:hover{border-color:var(--accent2)}
+.blog-dot{width:8px;height:8px;border-radius:50%;background:var(--accent2);flex-shrink:0}
+.blog-text{font-size:.85rem;color:var(--muted);line-height:1.6}
+
+.contact-inner{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
+.contact-info p{color:var(--muted);font-size:.9rem;line-height:2;margin-bottom:2rem}
+.contact-links{display:flex;flex-direction:column;gap:1rem}
+.contact-link{display:flex;align-items:center;gap:1rem;color:var(--text);text-decoration:none;font-size:.85rem;padding:.75rem 1rem;border:1px solid var(--border);border-radius:6px;transition:all .2s}
+.contact-link:hover{border-color:var(--accent);color:var(--accent)}
+.contact-link-icon{color:var(--accent);font-size:1rem;width:20px;text-align:center}
+.form-group{margin-bottom:1.2rem}
+.form-group label{display:block;font-size:.75rem;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;margin-bottom:.5rem}
+.form-group input,.form-group textarea{width:100%;background:var(--bg2);border:1px solid var(--border);color:var(--text);font-family:var(--mono);font-size:.9rem;padding:.8rem 1rem;border-radius:6px;outline:none;transition:border-color .2s;resize:vertical}
+.form-group input:focus,.form-group textarea:focus{border-color:var(--accent)}
+.form-group textarea{min-height:130px}
+.submit-btn{width:100%;background:var(--accent);color:var(--bg);font-family:var(--mono);font-weight:700;font-size:.9rem;padding:.9rem;border:none;border-radius:6px;cursor:pointer;transition:opacity .2s}
+.submit-btn:hover{opacity:.85}
+
+footer{border-top:1px solid var(--border);padding:2rem 4rem;display:flex;justify-content:space-between;align-items:center;max-width:1200px;margin:0 auto}
+footer p{font-size:.78rem;color:var(--muted)}
+.footer-back{font-size:.78rem;color:var(--muted);text-decoration:none;transition:color .2s}
+.footer-back:hover{color:var(--accent)}
+
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--border)}
+
+.fade-in{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.fade-in.visible{opacity:1;transform:none}
+
+@media(max-width:768px){
+  nav{padding:1rem 1.5rem}
+  nav ul{display:none}
+  #hero,.section-wrap{padding-left:1.5rem;padding-right:1.5rem}
+  .about-grid,.contact-inner{grid-template-columns:1fr}
+  .exp-item,.edu-item{grid-template-columns:1fr;gap:.5rem}
+  footer{flex-direction:column;gap:.5rem;padding:1.5rem}
+}
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="logo"><span>&lt;</span>DK<span>/&gt;</span></div>
+  <ul>
+    <li><a href="#about">about</a></li>
+    <li><a href="#experience">experience</a></li>
+    <li><a href="#projects">projects</a></li>
+    <li><a href="#achievements">achievements</a></li>
+    <li><a href="#contact">contact</a></li>
+  </ul>
+  <button class="nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">hire me</button>
+</nav>
+
+<!-- HERO -->
+<div id="hero">
+  <div class="hero-inner fade-in visible">
+    <div class="hero-tag">software developer · AI &amp; ML engineer</div>
+    <h1 class="hero-name">
+      Dishant Khati<br>
+      <span class="accent">builds intelligent</span><br>
+      systems.
+    </h1>
+    <p class="hero-desc">
+      B.Tech CSE (AI &amp; ML) graduate at TCS, crafting scalable data pipelines, ML-powered apps, and full-stack experiences. 
+      Patent holder · Research author · Competitive programmer.
+    </p>
+    <div class="hero-btns">
+      <a href="#projects" class="btn-primary">View my work</a>
+      <a href="#contact" class="btn-outline">Get in touch</a>
+    </div>
+    <div class="hero-contact-row">
+      <a href="mailto:dishantkhati2003@gmail.com" class="hero-contact-item"><span class="ci">@</span> dishantkhati2003@gmail.com</a>
+      <a href="https://github.com/KNIGHTUNITYDk" target="_blank" class="hero-contact-item"><span class="ci">&gt;_</span> KNIGHTUNITYDk</a>
+      <a href="https://linkedin.com/in/dishant-khati-202135217" target="_blank" class="hero-contact-item"><span class="ci">in</span> dishant-khati</a>
+      <a href="https://leetcode.com/KNIGHT-UNITY" target="_blank" class="hero-contact-item"><span class="ci">#</span> KNIGHT-UNITY</a>
+    </div>
+    <div class="hero-status">
+      <span class="status-dot"></span>
+      Currently at TCS · Open to new opportunities
+    </div>
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-wrap fade-in">
+    <div class="section-label">01 — about</div>
+    <h2 class="section-title">A little about me</h2>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>Hey! I'm <strong>Dishant Khati</strong>, a software developer and AI/ML engineer based in <strong>Noida, India</strong>. I graduated with a B.Tech in Computer Science (Hons. AI &amp; ML) from Graphic Era Hill University, Dehradun.</p>
+        <p>I currently work as an <strong>Assistant System Engineer at TCS</strong>, building ETL pipelines and enterprise data solutions. I'm passionate about the intersection of <strong>machine learning, data engineering, and product development</strong>.</p>
+        <p>Beyond code, I hold patents, have published research, and was Technical Head of the ACM Student Chapter at GEHU. I'm a 3.5-star coder on LeetCode and a CodeGladiators finalist.</p>
+      </div>
+      <div class="about-stats">
+        <div class="stat-card">
+          <div class="stat-num">3+</div>
+          <div class="stat-label">Years of experience</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">6+</div>
+          <div class="stat-label">Projects built</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">2</div>
+          <div class="stat-label">Patents approved</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">3.5★</div>
+          <div class="stat-label">LeetCode rating</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-wrap fade-in">
+    <div class="section-label">02 — skills</div>
+    <h2 class="section-title">What I work with</h2>
+    <div class="skills-grid">
+      <div class="skill-cat">
+        <div class="skill-cat-name">Languages</div>
+        <div class="skill-tags">
+          <span class="tag">Python</span>
+          <span class="tag">C++</span>
+          <span class="tag">Java</span>
+          <span class="tag">Kotlin</span>
+          <span class="tag">C</span>
+          <span class="tag">SQL</span>
+          <span class="tag">HTML/CSS</span>
+          <span class="tag">ReactJS</span>
+        </div>
+      </div>
+      <div class="skill-cat">
+        <div class="skill-cat-name">AI / ML Frameworks</div>
+        <div class="skill-tags">
+          <span class="tag">PyTorch</span>
+          <span class="tag">TensorFlow</span>
+          <span class="tag">Scikit-learn</span>
+          <span class="tag">NumPy</span>
+          <span class="tag">Pandas</span>
+          <span class="tag">Matplotlib</span>
+          <span class="tag">OpenCV</span>
+          <span class="tag">YOLO</span>
+        </div>
+      </div>
+      <div class="skill-cat">
+        <div class="skill-cat-name">Data Engineering</div>
+        <div class="skill-tags">
+          <span class="tag">Talend</span>
+          <span class="tag">Databricks</span>
+          <span class="tag">ETL Pipelines</span>
+          <span class="tag">Flask</span>
+          <span class="tag">XAMPP</span>
+          <span class="tag">Firebase</span>
+        </div>
+      </div>
+      <div class="skill-cat">
+        <div class="skill-cat-name">Tools &amp; Platforms</div>
+        <div class="skill-tags">
+          <span class="tag">Android Studio</span>
+          <span class="tag">Unity</span>
+          <span class="tag">Figma</span>
+          <span class="tag">VS Code</span>
+          <span class="tag">R-Studio</span>
+          <span class="tag">Jupyter</span>
+          <span class="tag">OpenGL</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-wrap fade-in">
+    <div class="section-label">03 — experience</div>
+    <h2 class="section-title">Where I've worked</h2>
+    <div class="exp-list">
+      <div class="exp-item">
+        <div class="exp-date">Jan 2024 — Present</div>
+        <div>
+          <div class="exp-role">Assistant System Engineer</div>
+          <div class="exp-company">Tata Consultancy Services (TCS) · Noida, India</div>
+          <div class="exp-desc">Developing and optimizing ETL pipelines for enterprise BI and analytics. Building scalable data engineering solutions that serve large-scale business intelligence workflows.</div>
+          <div class="exp-tags">
+            <span class="exp-tag">Talend</span><span class="exp-tag">Databricks</span><span class="exp-tag">Python</span><span class="exp-tag">Java</span><span class="exp-tag">ETL</span>
+          </div>
+        </div>
+      </div>
+      <div class="exp-item">
+        <div class="exp-date">Jul 2023 — Dec 2023</div>
+        <div>
+          <div class="exp-role">Machine Learning Intern</div>
+          <div class="exp-company">Suvidha NGO (Women Empowerment) · Remote</div>
+          <div class="exp-desc">Built ML applications advocating for girl child education funding. Created data-driven tools to support awareness and funding campaigns for women empowerment initiatives.</div>
+          <div class="exp-tags">
+            <span class="exp-tag">Python</span><span class="exp-tag">Flask</span><span class="exp-tag">ML</span>
+          </div>
+        </div>
+      </div>
+      <div class="exp-item">
+        <div class="exp-date">Jun 2022 — Aug 2022</div>
+        <div>
+          <div class="exp-role">Machine Learning Trainee</div>
+          <div class="exp-company">Amazon ML Summer School · Remote</div>
+          <div class="exp-desc">Intensive hands-on training with core ML algorithms including K-means clustering, Random Forest, and Dimensionality Reduction under Amazon's engineering mentors.</div>
+          <div class="exp-tags">
+            <span class="exp-tag">K-means</span><span class="exp-tag">Random Forest</span><span class="exp-tag">Dimensionality Reduction</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-wrap fade-in">
+    <div class="section-label">04 — projects</div>
+    <h2 class="section-title">Things I've built</h2>
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="project-img">🎬</div>
+        <div class="project-body">
+          <div class="project-title">MaxFlix</div>
+          <div class="project-stack">ReactJS · Firebase · SQL</div>
+          <div class="project-desc">Netflix clone web app with real-time trailer previews, authentication, and a full movie browsing experience.</div>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-img">👤</div>
+        <div class="project-body">
+          <div class="project-title">Faceit!</div>
+          <div class="project-stack">Python · Flask · YOLO · OpenCV</div>
+          <div class="project-desc">Face recognition app for identity verification and automated attendance tracking using real-time computer vision.</div>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-img">🤖</div>
+        <div class="project-body">
+          <div class="project-title">Zia</div>
+          <div class="project-stack">Python · Jupyter · OpenGL</div>
+          <div class="project-desc">Generative AI assistant with a GPT-like algorithm integrated with OS libraries for intelligent task automation.</div>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-img">✅</div>
+        <div class="project-body">
+          <div class="project-title">It-To</div>
+          <div class="project-stack">Kotlin · Android Studio</div>
+          <div class="project-desc">Personal to-do list Android app with multi-account support and a clean, intuitive mobile interface.</div>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-img">🔊</div>
+        <div class="project-body">
+          <div class="project-title">Ares</div>
+          <div class="project-stack">Python · ML / DL</div>
+          <div class="project-desc">AI-based text-to-speech converter and translator using deep learning models for natural voice synthesis.</div>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-img">🧠</div>
+        <div class="project-body">
+          <div class="project-title">Nika</div>
+          <div class="project-stack">Python · Flask</div>
+          <div class="project-desc">AI assistant using multi-model integration to handle a wide range of daily tasks through a unified interface.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="section-wrap fade-in">
+    <div class="section-label">05 — education</div>
+    <h2 class="section-title">Academic background</h2>
+    <div class="edu-list">
+      <div class="edu-item">
+        <div class="edu-year">2024</div>
+        <div>
+          <div class="edu-degree">B.Tech Computer Science &amp; Engineering</div>
+          <div class="edu-school">Graphic Era Hill University, Dehradun · Hons. AI &amp; ML</div>
+          <div class="edu-grade">CGPA: 7.5 / 10</div>
+        </div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-year">2020</div>
+        <div>
+          <div class="edu-degree">CBSE Class XII</div>
+          <div class="edu-school">Aryaman Vikram Birla Institute of Learning, Haldwani</div>
+          <div class="edu-grade">70%</div>
+        </div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-year">2018</div>
+        <div>
+          <div class="edu-degree">CBSE Class X</div>
+          <div class="edu-school">Aryaman Vikram Birla Institute of Learning, Haldwani</div>
+          <div class="edu-grade">64%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CERTIFICATIONS -->
+<section id="certifications">
+  <div class="section-wrap fade-in">
+    <div class="section-label">06 — certifications</div>
+    <h2 class="section-title">Credentials</h2>
+    <div class="cert-grid">
+      <a href="https://www.coursera.org/learn/blockchain-basics" target="_blank" class="cert-card">
+        <div class="cert-name">Blockchain Technology</div>
+        <div class="cert-org">Coursera · 2021</div>
+      </a>
+      <a href="https://www.coursera.org/learn/introduction-to-ai" target="_blank" class="cert-card">
+        <div class="cert-name">Introduction to AI</div>
+        <div class="cert-org">Coursera / IBM · 2022</div>
+      </a>
+      <a href="https://learn.microsoft.com/en-us/certifications/azure-ai-fundamentals/" target="_blank" class="cert-card">
+        <div class="cert-name">Azure AI Fundamentals</div>
+        <div class="cert-org">Microsoft · 2021</div>
+      </a>
+      <a href="https://www.coursera.org/learn/practical-machine-learning" target="_blank" class="cert-card">
+        <div class="cert-name">Practical Machine Learning</div>
+        <div class="cert-org">Johns Hopkins University · 2022</div>
+      </a>
+      <a href="https://www.coursera.org/learn/foundations-user-experience-design" target="_blank" class="cert-card">
+        <div class="cert-name">UI/UX Design Foundations</div>
+        <div class="cert-org">Google · 2022</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ACHIEVEMENTS -->
+<section id="achievements">
+  <div class="section-wrap fade-in">
+    <div class="section-label">07 — achievements</div>
+    <h2 class="section-title">Highlights &amp; recognition</h2>
+    <div class="ach-grid">
+      <div class="ach-item">
+        <div class="ach-bullet">▸</div>
+        <div class="ach-text"><strong>Finalist, CodeGladiators 2023</strong> — Ranked in the Top 50 nationally.</div>
+      </div>
+      <div class="ach-item">
+        <div class="ach-bullet">▸</div>
+        <div class="ach-text"><strong>3.5 Star Coder on LeetCode</strong> — Top 20K globally (KNIGHT-UNITY).</div>
+      </div>
+      <div class="ach-item">
+        <div class="ach-bullet">▸</div>
+        <div class="ach-text"><strong>Google Code Jam 2021 &amp; Google Kick Start 2021</strong> — Qualifier in both international rounds.</div>
+      </div>
+      <div class="ach-item">
+        <div class="ach-bullet">▸</div>
+        <div class="ach-text"><strong>Patents approved by Patent Authority of India</strong> — T-able and E-brush innovations.</div>
+      </div>
+      <div class="ach-item">
+        <div class="ach-bullet">▸</div>
+        <div class="ach-text"><strong>Research paper publication</strong> — Project OEPT.</div>
+      </div>
+      <div class="ach-item">
+        <div class="ach-bullet">▸</div>
+        <div class="ach-text"><strong>Technical Research Intern, Patent Dept. GEHU</strong> — Contributed to patents and research papers: OEPT, E-brush, T-able, SoTaD.</div>
+      </div>
+      <div class="ach-item">
+        <div class="ach-bullet">▸</div>
+        <div class="ach-text"><strong>Technical Head, ACM Student Chapter GEHU</strong> — Organized technical events and delivered talks to 200+ students.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- EXTRACURRICULAR -->
+<section id="extra">
+  <div class="section-wrap fade-in">
+    <div class="section-label">08 — extracurricular</div>
+    <h2 class="section-title">Beyond the code</h2>
+    <div class="blog-grid">
+      <div class="blog-item">
+        <div class="blog-dot"></div>
+        <div class="blog-text">Student Volunteer, <strong style="color:var(--text)">National Service Scheme</strong> (2022–2023) — community service and social outreach.</div>
+      </div>
+      <div class="blog-item">
+        <div class="blog-dot"></div>
+        <div class="blog-text">Performed at <strong style="color:var(--text)">Senior's Farewell 2023</strong> — cultural contribution at university level.</div>
+      </div>
+      <div class="blog-item">
+        <div class="blog-dot"></div>
+        <div class="blog-text">Participated in <strong style="color:var(--text)">GEUSPE Fest 2023</strong> — charitable funding event for social causes.</div>
+      </div>
+      <div class="blog-item">
+        <div class="blog-dot"></div>
+        <div class="blog-text">Active member of <strong style="color:var(--text)">IEEE Student Club</strong> — engaged in technical workshops and networking.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-wrap fade-in">
+    <div class="section-label">09 — contact</div>
+    <h2 class="section-title">Let's work together</h2>
+    <div class="contact-inner">
+      <div class="contact-info">
+        <p>Have a project in mind, a role to fill, or just want to talk tech? I'm always open to new conversations and opportunities.</p>
+        <div class="contact-links">
+          <a href="mailto:dishantkhati2003@gmail.com" class="contact-link">
+            <span class="contact-link-icon">@</span>
+            dishantkhati2003@gmail.com
+          </a>
+          <a href="tel:+918218665204" class="contact-link">
+            <span class="contact-link-icon">☏</span>
+            (+91) 8218665204
+          </a>
+          <a href="https://linkedin.com/in/dishant-khati-202135217" target="_blank" class="contact-link">
+            <span class="contact-link-icon">in</span>
+            linkedin.com/in/dishant-khati-202135217
+          </a>
+          <a href="https://github.com/KNIGHTUNITYDk" target="_blank" class="contact-link">
+            <span class="contact-link-icon">&gt;_</span>
+            github.com/KNIGHTUNITYDk
+          </a>
+          <a href="https://leetcode.com/KNIGHT-UNITY" target="_blank" class="contact-link">
+            <span class="contact-link-icon">#</span>
+            leetcode.com/KNIGHT-UNITY
+          </a>
+        </div>
+      </div>
+      <div class="contact-form">
+        <div class="form-group">
+          <label>Your name</label>
+          <input type="text" placeholder="Jane Smith" />
+        </div>
+        <div class="form-group">
+          <label>Email address</label>
+          <input type="email" placeholder="jane@company.com" />
+        </div>
+        <div class="form-group">
+          <label>Message</label>
+          <textarea placeholder="Tell me about your project or opportunity..."></textarea>
+        </div>
+        <button class="submit-btn">Send message →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Dishant Khati — built with ☕ &amp; curiosity</p>
+  <a href="#hero" class="footer-back">back to top ↑</a>
+</footer>
+
+<script>
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible') });
+}, {threshold: 0.1});
+document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
